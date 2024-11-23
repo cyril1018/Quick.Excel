@@ -9,9 +9,9 @@ namespace Quick.Excel.Core.Helpers
 {
     static internal class CellBinder
     {
-        /// <summary>設定儲存格值</summary>
-        /// <param name="cell">儲存格</param>
-        /// <param name="value">值</param>
+        /// <summary>Set cell value</summary>
+        /// <param name="cell">Cell</param>
+        /// <param name="value">Value</param>
         public static void BindValue<T>(Cell cell, T value)
         {
             if (value is string strVal)

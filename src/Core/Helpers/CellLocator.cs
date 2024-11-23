@@ -53,11 +53,11 @@ namespace Quick.Excel.Core.Helpers
 
 
 
-        /// <summary>取得excel文件的儲存格</summary>
-        /// <param name="document">excel文件</param>
-        /// <param name="sheetIndex">工作表索引(從零開始)</param>
-        /// <param name="rowIndex">列索引(從零開始)</param>
-        /// <param name="columnIndex">欄索引(從零開始)</param>
+        /// <summary>Get cell from excel document</summary>
+        /// <param name="document">Excel document</param>
+        /// <param name="sheetIndex">Sheet index (starting from zero)</param>
+        /// <param name="rowIndex">Row index (starting from zero)</param>
+        /// <param name="columnIndex">Column index (starting from zero)</param>
         /// <returns></returns>
         public static Cell GetCell(SpreadsheetDocument document, int sheetIndex, int rowIndex, int columnIndex)
         {
@@ -67,7 +67,7 @@ namespace Quick.Excel.Core.Helpers
 
             if (sheet == null)
             {
-                throw new InvalidOperationException($"找不到 第'{sheetIndex + 1}'個工作表");
+                throw new InvalidOperationException($"Sheet '{sheetIndex + 1}' not found");
             }
 
             WorksheetPart worksheetPart = (WorksheetPart)workbookPart.GetPartById(sheet.Id);

@@ -7,20 +7,19 @@ using System.Reflection;
 
 namespace Quick.Excel.Core;
 
-/// <summary>使用列舉資料產生 工作表</summary>
-public class DataSheetCreator
-    : SheetCreatorBase
+/// <summary>Generate worksheet using enumerable data</summary>
+public class DataSheetCreator : SheetCreatorBase
 {
-    /// <summary>輸出資料</summary>
+    /// <summary>Output data</summary>
     protected readonly IEnumerable Data;
 
-    /// <summary>起始輸出列位置索引</summary>
+    /// <summary>Starting row index for output</summary>
     protected readonly int StartRowIndex;
 
-    /// <summary>起始輸出欄位置索引</summary>
+    /// <summary>Starting column index for output</summary>
     protected readonly int StartColumnIndex;
-    public DataSheetCreator
-        (IEnumerable data, int startRowIndex = 0, int startColumnIndex = 0)
+
+    public DataSheetCreator(IEnumerable data, int startRowIndex = 0, int startColumnIndex = 0)
     {
         Data = data;
         StartRowIndex = startRowIndex;
@@ -28,22 +27,22 @@ public class DataSheetCreator
         CellCreated += EnumerableDataSheetCreator_CellCreated;
     }
 
-    /// <summary>產生工作表列數</summary>
+    /// <summary>Number of rows to generate in the worksheet</summary>
     int RowsCount => StartRowIndex + Data.Cast<object>().Count();
 
-    /// <summary>產生工作表欄數</summary>
+    /// <summary>Number of columns to generate in the worksheet</summary>
     int ColumnsCount => StartColumnIndex + PropertyNames.Length;
 
-    /// <summary>資料列舉操作索引</summary>
+    /// <summary>Data enumerator index</summary>
     int? DataEnumeratorIndex = null;
 
-    /// <summary>資料列舉操作器</summary>
+    /// <summary>Data enumerator</summary>
     IEnumerator DataEnumerator;
 
-    /// <summary>資料屬性名稱暫存</summary>
+    /// <summary>Data property names cache</summary>
     string[] _PropertyNames;
 
-    /// <summary>資料屬性名稱</summary>
+    /// <summary>Data property names</summary>
     protected string[] PropertyNames
     {
         get
@@ -59,10 +58,10 @@ public class DataSheetCreator
         }
     }
 
-    /// <summary>設定儲存格資料值</summary>
-    /// <param name="cell">待設定儲存格</param>
-    /// <param name="rowIndex">資料列索引</param>
-    /// <param name="columnIndex">資料欄位索引</param>
+    /// <summary>Set cell data value</summary>
+    /// <param name="cell">Cell to set</param>
+    /// <param name="rowIndex">Data row index</param>
+    /// <param name="columnIndex">Data column index</param>
     private void SetDataCell(Cell cell, int rowIndex, int columnIndex)
     {
         var row = GetDataRow(rowIndex);
@@ -71,25 +70,25 @@ public class DataSheetCreator
         CellBinder.BindValue(cell, value);
     }
 
-    /// <summary>依屬性名稱取值 </summary>
-    /// <param name="data">資料</param>
-    /// <param name="propertyName">屬性名稱</param>
+    /// <summary>Get value by property name</summary>
+    /// <param name="data">Data</param>
+    /// <param name="propertyName">Property name</param>
     /// <returns></returns>
     object GetValue(object data, string propertyName)
     => data is IDictionary<string, object> dict
         ? dict[propertyName]
         : (data.GetType().GetProperty(propertyName)?.GetValue(data));
 
-    /// <summary>資料屬性資訊</summary>
+    /// <summary>Data property information</summary>
     IEnumerable<PropertyInfo> DataProperties
         => Data.Cast<object>().FirstOrDefault()?
         .GetType()
         .GetProperties()
         .Where(x => x.DeclaringType.Name != "DynamicClass");
 
-    /// <summary> Cell 建立事件時設定資料值</summary>
-    /// <param name="sender">事件發動者</param>
-    /// <param name="e">事件參數</param>
+    /// <summary>Set data value when cell is created</summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event arguments</param>
     private void EnumerableDataSheetCreator_CellCreated(object sender, CellCreatedEventArgs e)
     {
         if (e.RowIndex < StartRowIndex || e.ColumnIndex < StartColumnIndex)
@@ -99,12 +98,12 @@ public class DataSheetCreator
         SetDataCell(e.Cell, _DataRowIndex, _DataColumnIndex);
     }
 
-    /// <summary>建立工作表</summary>
+    /// <summary>Create worksheet</summary>
     public override SheetData CreateSheetData()
         => CreateSheetData(ColumnsCount, RowsCount);
 
-    /// <summary>取得單筆資料</summary>
-    /// <param name="index">資料索引</param>
+    /// <summary>Get single data row</summary>
+    /// <param name="index">Data index</param>
     /// <returns></returns>
     object GetDataRow(int index)
     {
@@ -125,7 +124,7 @@ public class DataSheetCreator
         return GetDataRow(index);
     }
 
-    /// <summary>初始化資料列舉操作器</summary>
+    /// <summary>Initialize data enumerator</summary>
     void InitDataEnumerator()
     {
         DataEnumerator = Data.GetEnumerator();

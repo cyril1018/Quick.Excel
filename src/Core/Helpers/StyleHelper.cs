@@ -11,10 +11,10 @@ namespace Quick.Excel.Core.Helpers
 {
     static internal class StyleHelper
     {
-        /// <summary>設定預設日期格式</summary>
-        /// <param name="doc">文件</param>
-        /// <param name="cellStyleIndex">日期格式索引</param>
-        /// <remarks>參考來源：http://polymathprogrammer.com/2009/11/09/how-to-create-stylesheet-in-excel-open-xml/ </remarks>
+        /// <summary>Set default date format</summary>
+        /// <param name="doc">Document</param>
+        /// <param name="cellStyleIndex">Date format index</param>
+        /// <remarks>Reference: http://polymathprogrammer.com/2009/11/09/how-to-create-stylesheet-in-excel-open-xml/ </remarks>
         public static void ApplyDefaultDateFormat(this SpreadsheetDocument doc, out UInt32Value cellStyleIndex)
         {
             var workbookStylesPart = doc.WorkbookPart.AddNewPart<WorkbookStylesPart>();

@@ -4,10 +4,10 @@ using System.Collections;
 
 namespace Quick.Excel.Core;
 
-/// <summary>使用列舉資料產生 工作表(第一列輸出資料屬性名稱作為標題)</summary>
+/// <summary>Generates a worksheet using enumerable data (outputs property names as titles in the first row)</summary>
 public class TitleDataSheetCreator : DataSheetCreator
 {
-    /// <summary>標題列索引</summary>
+    /// <summary>Title row index</summary>
     readonly int TitleRowIndex;
     public TitleDataSheetCreator(IEnumerable data, int startRowIndex = 0, int startColumnIndex = 0)
         : base(data, startRowIndex + 1, startColumnIndex)
@@ -16,13 +16,13 @@ public class TitleDataSheetCreator : DataSheetCreator
         CellCreated += EnumerableDataWithTitleSheetCreator_CellCreated;
     }
 
-    /// <summary> Cell 建立事件時 設定標題列</summary>
-    /// <param name="sender">事件發動者</param>
-    /// <param name="e">事件參數</param>
+    /// <summary> Sets the title row when the Cell Created event is triggered</summary>
+    /// <param name="sender">Event sender</param>
+    /// <param name="e">Event arguments</param>
     private void EnumerableDataWithTitleSheetCreator_CellCreated(object sender, CellCreatedEventArgs e)
     {
         if (e.RowIndex != TitleRowIndex)
             return;
-            CellBinder.BindValue(e.Cell, PropertyNames[e.ColumnIndex - StartColumnIndex]);
+        CellBinder.BindValue(e.Cell, PropertyNames[e.ColumnIndex - StartColumnIndex]);
     }
 }

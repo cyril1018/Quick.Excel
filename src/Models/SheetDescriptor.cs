@@ -3,17 +3,17 @@
 namespace Quick.Excel.Models
 {
     /// <summary>
-    /// 工作表描述
+    /// Sheet descriptor
     /// </summary>
     public class SheetDescriptor
     {
-        /// <summary>工作表名稱</summary>
-		public string Name { get; set; }
+        /// <summary>Sheet name</summary>
+        public string Name { get; set; }
 
-        /// <summary>工作表資料</summary>
+        /// <summary>Sheet data</summary>
         public SheetData Data { get; set; }
 
-        /// <summary>工作表欄位設定</summary>
+        /// <summary>Sheet columns settings</summary>
         public Columns Columns { get; set; }
     }
 }

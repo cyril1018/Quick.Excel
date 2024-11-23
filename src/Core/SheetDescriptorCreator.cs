@@ -4,13 +4,13 @@ using Quick.Excel.Models;
 
 namespace Quick.Excel.Core
 {
-    /// <summary>工作表描述產生器</summary>
+    /// <summary>Sheet descriptor creator</summary>
     internal class SheetDescriptorCreator
     {
-        /// <summary>欄位資訊列表</summary>
+        /// <summary>List of column information</summary>
         private readonly List<Column> _ColumnList;
 
-        /// <summary>工作表產生器</summary>
+        /// <summary>Sheet creator</summary>
         private readonly SheetCreatorBase _SheetCreator;
 
         public SheetDescriptorCreator(SheetCreatorBase sheetCreator)
@@ -20,7 +20,7 @@ namespace Quick.Excel.Core
             _ColumnList = new List<Column>();
         }
 
-        /// <summary>欄位資訊</summary>
+        /// <summary>Column information</summary>
         private Columns Columns
         {
             get
@@ -32,7 +32,7 @@ namespace Quick.Excel.Core
             }
         }
 
-        /// <summary>當 Cell 建立後，於此依資料內容設定欄位</summary>
+        /// <summary>Set column based on data content when Cell is created</summary>
         private void SheetCreator_CellCreated(object sender, SheetCreatorBase.CellCreatedEventArgs e)
         {
             if (e.Cell.CellValue == null)
@@ -47,9 +47,9 @@ namespace Quick.Excel.Core
             BindColumn(e.ColumnIndex, _Str.Length);
         }
 
-        /// <summary>設定欄位</summary>
-        /// <param name="columnIndex">欄位索引</param>
-        /// <param name="valLength">資料長度</param>
+        /// <summary>Set column</summary>
+        /// <param name="columnIndex">Column index</param>
+        /// <param name="valLength">Data length</param>
         protected void BindColumn(int columnIndex, int valLength)
         {
             var created = _ColumnList.Count > columnIndex;
@@ -73,15 +73,15 @@ namespace Quick.Excel.Core
             });
         }
 
-        /// <summary>計算欄位寬度</summary>
-        /// <param name="valLength">字串長度</param>
-        /// <returns>欄位寬度</returns>
+        /// <summary>Calculate column width</summary>
+        /// <param name="valLength">String length</param>
+        /// <returns>Column width</returns>
         private double CalculateColumnWidth(int valLength)
          => valLength * 2 + 5;
 
-        /// <summary>建立工作表描述</summary>
-        /// <param name="sheetName">工作表名稱</param>
-        /// <returns>工作表描述</returns>
+        /// <summary>Create sheet descriptor</summary>
+        /// <param name="sheetName">Sheet name</param>
+        /// <returns>Sheet descriptor</returns>
         public SheetDescriptor Create(string sheetName)
             => new SheetDescriptor { Name = sheetName, Data = _SheetCreator.CreateSheetData(), Columns = Columns };
     }
