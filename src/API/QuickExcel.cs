@@ -161,5 +161,5 @@ public static class QuickExcel
 	/// <param name="cell">找到的儲存格</param>
 	/// <returns></returns>
 	public static bool FindCell(this Worksheet worksheet, uint columnIndex, uint rowIndex, out Cell cell)
-		=> CellLocator.FindSpreadsheetCell(worksheet, columnIndex, rowIndex, out cell);
+		=> CellLocator.FindCell(worksheet, columnIndex, rowIndex, out cell);
 }

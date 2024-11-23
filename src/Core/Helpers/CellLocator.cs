@@ -17,7 +17,7 @@ namespace Quick.Excel.Core.Helpers
         /// <param name="rowIndex">列索引(從零開始)</param>
         /// <param name="cell">找到的儲存格</param>
         /// <returns></returns>
-        public static bool FindSpreadsheetCell(Worksheet worksheet, uint columnIndex, uint rowIndex, out Cell cell)
+        public static bool FindCell(Worksheet worksheet, uint columnIndex, uint rowIndex, out Cell cell)
             => FindSpreadsheetCell(worksheet, $"{CellReferenceConverter.NumberToAlphabet(columnIndex + 1)}", rowIndex, out cell);
 
 
@@ -88,7 +88,7 @@ namespace Quick.Excel.Core.Helpers
         public static Cell GetOrCreateCell(Worksheet worksheet, uint columnIndex, uint rowIndex)
         {
             Cell _Cell;
-            if (FindSpreadsheetCell(worksheet, columnIndex, rowIndex, out _Cell))
+            if (FindCell(worksheet, columnIndex, rowIndex, out _Cell))
                 return _Cell;
 
             _Cell = new Cell
