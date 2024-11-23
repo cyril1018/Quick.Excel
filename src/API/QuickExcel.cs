@@ -118,7 +118,7 @@ public static class QuickExcel
 	/// <param name="rowIndex">列索引(從零開始)</param>
 	/// <param name="columnIndex">欄索引(從零開始)</param>
 	/// <param name="value">要設定的值</param>
-	private static void BindCellValue<T>(SpreadsheetDocument doc, Sheet sheet, uint rowIndex, uint columnIndex, T value)
+	private static void BindCellValue<T>(this SpreadsheetDocument doc, Sheet sheet, uint rowIndex, uint columnIndex, T value)
 	{
 		SheetEditor.BindCellValue(doc, sheet, rowIndex, columnIndex, value);
     }
@@ -128,7 +128,7 @@ public static class QuickExcel
 	/// <param name="reference">位置 e.g. A1, B3,...</param>
 	/// <param name="value">要設定的值</param>
 	/// <param name="sheetIndex">工作表索引(從零開始)</param>
-	public static void BindCellValue<T>(SpreadsheetDocument doc, string reference, T value, int sheetIndex = 0)
+	public static void BindCellValue<T>(this SpreadsheetDocument doc, string reference, T value, int sheetIndex = 0)
 	{
 		SheetEditor.BindCellValue(doc, reference, value, sheetIndex);
     }
@@ -138,20 +138,20 @@ public static class QuickExcel
 	/// <param name="reference">位置</param>
 	/// <param name="value">要設定的值</param>
 	/// <param name="sheetName">工作表索引(從零開始)</param>
-	public static void BindCellValue<T>(SpreadsheetDocument doc, string reference, T value, string sheetName)
+	public static void BindCellValue<T>(this SpreadsheetDocument doc, string reference, T value, string sheetName)
 	{
        SheetEditor.BindCellValue(doc, reference, value, sheetName);
     }
 
 	/// <summary>取得excel文件的儲存格</summary>
-	/// <param name="document">excel文件</param>
+	/// <param name="doc">excel文件</param>
 	/// <param name="sheetIndex">工作表索引(從零開始)</param>
 	/// <param name="rowIndex">列索引(從零開始)</param>
 	/// <param name="columnIndex">欄索引(從零開始)</param>
 	/// <returns></returns>
-	public static Cell GetCell(this SpreadsheetDocument document, int rowIndex, int columnIndex, int sheetIndex = 0)
+	public static Cell GetCell(this SpreadsheetDocument doc, int rowIndex, int columnIndex, int sheetIndex = 0)
 	{
-		return CellLocator.GetCell(document, rowIndex, columnIndex, sheetIndex);
+		return CellLocator.GetCell(doc, rowIndex, columnIndex, sheetIndex);
     }
 
 	/// <summary>尋找儲存格</summary>
@@ -160,6 +160,6 @@ public static class QuickExcel
 	/// <param name="rowIndex">列索引(從零開始)</param>
 	/// <param name="cell">找到的儲存格</param>
 	/// <returns></returns>
-	public static bool FindCell(Worksheet worksheet, uint columnIndex, uint rowIndex, out Cell cell)
+	public static bool FindCell(this Worksheet worksheet, uint columnIndex, uint rowIndex, out Cell cell)
 		=> CellLocator.FindSpreadsheetCell(worksheet, columnIndex, rowIndex, out cell);
 }
