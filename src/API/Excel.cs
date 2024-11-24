@@ -42,36 +42,9 @@ public static class Excel
         var doc = SpreadsheetDocument.Create(stream, SpreadsheetDocumentType.Workbook);
         var workbookPart = doc.AddWorkbookPart();
         workbookPart.Workbook = new Workbook();
-        var sheets = workbookPart.Workbook.AppendChild(new Sheets());
-        UInt32Value sheetId = 1;
-        foreach (var dto in sheetDescriptors)
-        {
-            var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-            worksheetPart.Worksheet = new Worksheet();
-            worksheetPart.Worksheet.AppendChild(dto.Columns);
-            sheets.AppendChild(new Sheet
-            {
-                Id = workbookPart.GetIdOfPart(worksheetPart),
-                SheetId = sheetId++,
-                Name = dto.Name
-            });
-            worksheetPart.Worksheet.AddChild(dto.Data);
-        }
 
-        // Check if there are cells formatted as Date without a style set
-        if (sheetDescriptors.Any(
-            x => x.Data.Descendants<Cell>().Any(
-                x => x.DataType == CellValues.Date && x.StyleIndex == null)
-            ))
-        {
-            // Set default date style
-            doc.ApplyDefaultDateFormat(out UInt32Value cellStyleIndex);
-
-            foreach (var sheetData in sheetDescriptors.Select(x => x.Data))
-                foreach (var cell in sheetData.Descendants<Cell>().Where(x => x.DataType == CellValues.Date && x.StyleIndex == null))
-                    cell.StyleIndex = cellStyleIndex;
-        }
-
+        WorkbookBuilder.AddSheets(workbookPart, sheetDescriptors);
+        StyleHelper.ApplyDefaultDateStyle(doc, sheetDescriptors);
         return doc;
     }
 

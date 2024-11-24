@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using SanChong.Excel.Models;
 
 namespace SanChong.Excel.Core.Helpers
 {
@@ -10,7 +11,7 @@ namespace SanChong.Excel.Core.Helpers
         /// <param name="doc">Document</param>
         /// <param name="cellStyleIndex">Date format index</param>
         /// <remarks>Reference: http://polymathprogrammer.com/2009/11/09/how-to-create-stylesheet-in-excel-open-xml/ </remarks>
-        public static void ApplyDefaultDateFormat(this SpreadsheetDocument doc, out UInt32Value cellStyleIndex)
+        static void ApplyDefaultDateFormat(SpreadsheetDocument doc, out UInt32Value cellStyleIndex)
         {
             var workbookStylesPart = doc.WorkbookPart.AddNewPart<WorkbookStylesPart>();
             workbookStylesPart.Stylesheet = new Stylesheet();
@@ -114,6 +115,28 @@ namespace SanChong.Excel.Core.Helpers
                 DefaultTableStyle = "TableStyleMedium9",
                 DefaultPivotStyle = "PivotStyleLight16"
             });
+        }
+
+        /// <summary>
+        /// Apply default date style to cells without a style set.
+        /// </summary>
+        /// <param name="doc">Spreadsheet document</param>
+        /// <param name="sheetDescriptors">Array of sheet descriptors</param>
+        internal static void ApplyDefaultDateStyle(SpreadsheetDocument doc, SheetDescriptor[] sheetDescriptors)
+        {
+            // Check if there are cells formatted as Date without a style set
+            if (sheetDescriptors.Any(
+                x => x.Data.Descendants<Cell>().Any(
+                    x => x.DataType == CellValues.Date && x.StyleIndex == null)
+                ))
+            {
+                // Set default date style
+                ApplyDefaultDateFormat(doc, out UInt32Value cellStyleIndex);
+
+                foreach (var sheetData in sheetDescriptors.Select(x => x.Data))
+                    foreach (var cell in sheetData.Descendants<Cell>().Where(x => x.DataType == CellValues.Date && x.StyleIndex == null))
+                        cell.StyleIndex = cellStyleIndex;
+            }
         }
     }
 }
