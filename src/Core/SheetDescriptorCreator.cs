@@ -1,8 +1,8 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
-using Quick.Excel.Models;
+using SanChong.Excel.Models;
 
-namespace Quick.Excel.Core
+namespace SanChong.Excel.Core
 {
     /// <summary>Sheet descriptor creator</summary>
     internal class SheetDescriptorCreator

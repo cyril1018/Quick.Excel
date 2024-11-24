@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Quick.Excel.Core.Helpers
+namespace SanChong.Excel.Core.Helpers
 {
     /// <summary>Cell position converter</summary>
     internal static class CellReferenceConverter

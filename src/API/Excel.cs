@@ -1,15 +1,15 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
-using Quick.Excel.Core;
-using Quick.Excel.Core.Helpers;
-using Quick.Excel.Models;
+using SanChong.Excel.Core;
+using SanChong.Excel.Core.Helpers;
+using SanChong.Excel.Models;
 using System.Collections;
 
-namespace Quick.Excel.API;
+namespace SanChong.Excel.API;
 
 /// <summary>Generate Excel</summary>
-public static class QuickExcel
+public static class Excel
 
 {
     /// <summary>Generate Excel with a single worksheet</summary>

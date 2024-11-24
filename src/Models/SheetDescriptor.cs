@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 
-namespace Quick.Excel.Models
+namespace SanChong.Excel.Models
 {
     /// <summary>
     /// Sheet descriptor

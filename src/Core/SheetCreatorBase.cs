@@ -1,9 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
-using Quick.Excel.Models;
-using System.Collections;
-using System.Reflection;
 
-namespace Quick.Excel.Core;
+namespace SanChong.Excel.Core;
 
 /// <summary>Sheet Creator</summary>
 public abstract class SheetCreatorBase

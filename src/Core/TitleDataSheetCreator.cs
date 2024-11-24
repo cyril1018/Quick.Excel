@@ -1,8 +1,7 @@
-﻿using Quick.Excel.API;
-using Quick.Excel.Core.Helpers;
+﻿using SanChong.Excel.Core.Helpers;
 using System.Collections;
 
-namespace Quick.Excel.Core;
+namespace SanChong.Excel.Core;
 
 /// <summary>Generates a worksheet using enumerable data (outputs property names as titles in the first row)</summary>
 public class TitleDataSheetCreator : DataSheetCreator

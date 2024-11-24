@@ -1,11 +1,9 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
-using Quick.Excel.API;
-using Quick.Excel.Core.Helpers;
-using Quick.Excel.Models;
+using SanChong.Excel.Core.Helpers;
 using System.Collections;
 using System.Reflection;
 
-namespace Quick.Excel.Core;
+namespace SanChong.Excel.Core;
 
 /// <summary>Generate worksheet using enumerable data</summary>
 public class DataSheetCreator : SheetCreatorBase
