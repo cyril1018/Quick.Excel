@@ -1,4 +1,4 @@
-# Quick.Excel
+# SanChong.Excel
 A lightweight library built on OpenXML SDK to easily generate Excel files.
 
 ## Features
