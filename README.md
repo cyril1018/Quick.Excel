@@ -12,4 +12,4 @@ Currently available on GitHub. NuGet release coming soon.
 ## Usage
 ```csharp
 var data = Conn.Query("SELECT Role, Account, Name FROM Users;");
-var excelStream = QuickExcel.Create(data);
+var excelStream = Excel.Create(data);
