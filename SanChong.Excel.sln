@@ -5,7 +5,7 @@ VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SanChong.Excel", "src\SanChong.Excel.csproj", "{4B42D4A7-A895-4A51-A148-B7E0B10754B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SanChong.Excel.Tests", "SanChong.Excel.Tests\SanChong.Excel.Tests.csproj", "{8F615788-9324-4BC3-AB13-14493389B11A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SanChong.Excel.Tests", "Tests\SanChong.Excel.Tests.csproj", "{8F615788-9324-4BC3-AB13-14493389B11A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
