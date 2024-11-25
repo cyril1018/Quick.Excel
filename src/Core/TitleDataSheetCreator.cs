@@ -22,6 +22,11 @@ public class TitleDataSheetCreator : DataSheetCreator
     {
         if (e.RowIndex != TitleRowIndex)
             return;
+        if (IsEmptyData)
+        {
+            CellBinder.BindValue(e.Cell, (string)null);
+            return;
+        }
         CellBinder.BindValue(e.Cell, PropertyNames[e.ColumnIndex - StartColumnIndex]);
     }
 }

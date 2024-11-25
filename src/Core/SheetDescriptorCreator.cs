@@ -53,10 +53,15 @@ namespace SanChong.Excel.Core
         protected void BindColumn(int columnIndex, int valLength)
         {
             var created = _ColumnList.Count > columnIndex;
+            Column col = null;
+            double width = 0;
             if (created)
             {
-                var width = CalculateColumnWidth(valLength);
-                var col = _ColumnList[columnIndex];
+                width = CalculateColumnWidth(valLength);
+                if (width == 0)
+                    return;
+
+                col = _ColumnList[columnIndex];
                 if (width > DoubleValue.ToDouble(col.Width))
                     col.Width = DoubleValue.FromDouble(width);
                 return;
@@ -64,20 +69,27 @@ namespace SanChong.Excel.Core
 
             // index start from 1 in OpenXML
             var uInt32ColumnIndex = new UInt32Value(Convert.ToUInt32(columnIndex)) + 1;
-            _ColumnList.Add(new Column
+
+            col = new Column
             {
                 Min = uInt32ColumnIndex,
-                Max = uInt32ColumnIndex,
-                CustomWidth = true,
-                Width = CalculateColumnWidth(valLength)
-            });
+                Max = uInt32ColumnIndex
+            };
+            width = CalculateColumnWidth(valLength);
+            if (width > 0)
+            {
+                col.CustomWidth = true;
+                col.Width = width;
+            }
+
+            _ColumnList.Add(col);
         }
 
         /// <summary>Calculate column width</summary>
         /// <param name="valLength">String length</param>
         /// <returns>Column width</returns>
         private double CalculateColumnWidth(int valLength)
-         => valLength * 2 + 5;
+         => valLength == 0 ? 0 : valLength * 2 + 5;
 
         /// <summary>Create sheet descriptor</summary>
         /// <param name="sheetName">Sheet name</param>

@@ -25,11 +25,20 @@ public class DataSheetCreator : SheetCreatorBase
         CellCreated += EnumerableDataSheetCreator_CellCreated;
     }
 
+    /// <summary>
+    /// Whether the data is empty
+    /// </summary>
+    protected bool IsEmptyData => Data == null || !Data.Cast<object>().Any();
+
     /// <summary>Number of rows to generate in the worksheet</summary>
-    int RowsCount => StartRowIndex + Data.Cast<object>().Count();
+    int RowsCount => IsEmptyData
+        ? 1
+        : StartRowIndex + Data.Cast<object>().Count();
 
     /// <summary>Number of columns to generate in the worksheet</summary>
-    int ColumnsCount => StartColumnIndex + PropertyNames.Length;
+    int ColumnsCount => IsEmptyData
+        ? 1
+        : StartColumnIndex + PropertyNames.Length;
 
     /// <summary>Data enumerator index</summary>
     int? DataEnumeratorIndex = null;
@@ -50,7 +59,7 @@ public class DataSheetCreator : SheetCreatorBase
 
             _PropertyNames = Data.Cast<object>().FirstOrDefault() is IDictionary<string, object> dict
                 ? dict.Keys.ToArray()
-                : DataProperties.Select(x => x.Name).ToArray();
+                : DataProperties?.Select(x => x.Name).ToArray();
 
             return _PropertyNames;
         }
@@ -62,6 +71,11 @@ public class DataSheetCreator : SheetCreatorBase
     /// <param name="columnIndex">Data column index</param>
     private void SetDataCell(Cell cell, int rowIndex, int columnIndex)
     {
+        if(IsEmptyData)
+        {
+            CellBinder.BindValue(cell, (string)null);
+            return;
+        }    
         var row = GetDataRow(rowIndex);
         var name = PropertyNames[columnIndex];
         var value = GetValue(row, name);
