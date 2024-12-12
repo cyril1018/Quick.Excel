@@ -7,7 +7,7 @@ A lightweight library built on OpenXML SDK to easily generate Excel files.
 - Support multiple sheets with simple APIs.
 
 ## Installation
-Currently available on GitHub. NuGet release coming soon.
+Currently available on GitHub.
 
 ## Usage
 ```csharp
